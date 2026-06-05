@@ -227,6 +227,15 @@ export { projects } from "@/lib/projects";
 export const achievements = [
   {
     year: "2025",
+    title: "Raising the Bar Award",
+    org: "Paysys Labs",
+    description:
+      "Awarded for exceptional performance — going above and beyond what was asked and delivering work that stood out across the team.",
+    icon: "award",
+    type: "award",
+  },
+  {
+    year: "2025",
     title: "CKA — Certified Kubernetes Administrator",
     org: "KodeKloud · Preparing for CNCF exam",
     description:

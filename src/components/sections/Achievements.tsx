@@ -116,16 +116,40 @@ export default function Achievements() {
                     <div style={{
                       position: "absolute", left: -4,
                       width: 8, height: 8, borderRadius: "50%",
-                      background: "rgba(59,130,246,0.6)",
+                      background: item.type === "award" ? "rgba(251,191,36,0.9)" : "rgba(59,130,246,0.6)",
                       marginTop: 6,
+                      boxShadow: item.type === "award" ? "0 0 10px rgba(251,191,36,0.5)" : "none",
                     }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 5 }}>
-                        <div style={{ fontSize: 15, fontWeight: 600, color: "#fff", lineHeight: 1.4 }}>{item.title}</div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          {item.type === "award" && (
+                            <span style={{ fontSize: 16 }}>🏆</span>
+                          )}
+                          <div style={{ fontSize: 15, fontWeight: 600, color: item.type === "award" ? "#FCD34D" : "#fff", lineHeight: 1.4 }}>{item.title}</div>
+                        </div>
                         <span style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", flexShrink: 0 }}>{item.year}</span>
                       </div>
-                      <div style={{ fontSize: 12, color: "#3B82F6", marginBottom: 5, fontWeight: 500 }}>{item.org}</div>
+                      <div style={{ fontSize: 12, color: item.type === "award" ? "rgba(251,191,36,0.6)" : "#3B82F6", marginBottom: 5, fontWeight: 500 }}>{item.org}</div>
                       <div style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>{item.description}</div>
+                      {item.type === "award" && (
+                        <a
+                          href="/raising-the-bar-award.jpeg"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: "inline-flex", alignItems: "center", gap: 6,
+                            marginTop: 10, fontSize: 12, color: "rgba(251,191,36,0.8)",
+                            textDecoration: "none", fontWeight: 500,
+                            padding: "4px 10px", borderRadius: 6,
+                            border: "1px solid rgba(251,191,36,0.2)",
+                            background: "rgba(251,191,36,0.06)",
+                            transition: "all 0.2s",
+                          }}
+                        >
+                          View Award ↗
+                        </a>
+                      )}
                     </div>
                   </motion.div>
                 ))}
