@@ -3,7 +3,8 @@
     "allow": [
       "Bash(python3 -c \"import pdfminer\")",
       "Bash(python3 -c ' *)",
-      "Bash(pip3 install *)"
+      "Bash(pip3 install *)",
+      "Bash(npx tsc *)"
     ]
   }
 }
