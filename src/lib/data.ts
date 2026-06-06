@@ -3,7 +3,7 @@ export const personalInfo = {
   shortName: "Naimatullah",
   initials: "NK",
   title: "DevOps Engineer",
-  tagline: "2× Gold Medalist · KodeKloud CKA",
+  tagline: "2 × Gold Medalist · KodeKloud CKA",
   headline: "Building Infrastructure That Handles Millions of Transactions",
   subheadline:
     "DevOps Engineer specializing in Kubernetes, CI/CD, and cloud infrastructure for mission-critical fintech systems across multiple countries.",
@@ -16,8 +16,8 @@ export const personalInfo = {
   bio: "I fix things before people notice they're broken, and sometimes I fix things people didn't even know needed fixing. I'm a DevOps Engineer working on fintech infrastructure that handles real financial transactions across multiple countries. Downtime here isn't just an inconvenience, it's a serious business problem. That pressure taught me to build systems that are reliable, not just good on paper.",
   stats: [
     { label: "Uptime Maintained", value: "99.9%" }, 
-    { label: "Microservices Managed", value: "10+" },
-    { label: "Engineers Mentored", value: "20+" },
+    { label: "Microservices Managed", value: "9+" },
+    { label: "Engineers Mentored", value: "100+" },
     { label: "Deployment Failures Reduced", value: "75%" },
   ],
 };

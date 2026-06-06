@@ -45,7 +45,7 @@ export const projects = [
       "One main script that pulls in smaller helper scripts — one for checking the config, one for updating settings, one for rolling out the new version, one for running health checks, and one for writing the log.",
     tech: ["Bash", "Kubernetes", "kubectl", "yq", "ELK Stack", "Filebeat", "GitLab CI", "Ambassador", "YAML"],
     highlights: [
-      { metric: "70–90%", label: "Faster Deploys" },
+      { metric: "70 – 90%", label: "Faster Deploys" },
       { metric: "2", label: "Countries" },
       { metric: "0", label: "Downtime" },
     ],
@@ -83,22 +83,22 @@ export const projects = [
   {
     slug: "elk-stack-observability",
     title: "ELK Stack Observability Platform",
-    subtitle: "One dashboard to see what's happening across 20+ services at once",
+    subtitle: "One dashboard to see what's happening across 9+ services at once",
     problem:
       "When something went wrong, engineers had to check 20+ different apps one by one to find the bad log line. It took hours. By the time they found the problem, it had often already caused an outage.",
     solution:
       "I set up an ELK Stack — a system that automatically collects logs from every app and puts them all in one place. Engineers can now search across everything from one screen. I also set up alerts so the system warns us before things get bad.",
     impact: [
-      "Finding issues now takes 60% less time than before",
-      "All 20+ services visible from one dashboard",
+      "Finding issues now takes 80% less time than before",
+      "All 9+ services visible from one dashboard",
       "Automatic alerts catch problems early, before users notice",
     ],
     architecture:
       "A small log collector runs on every server and sends logs to a processing service that cleans them up, then stores them in a searchable database. A web dashboard shows everything in one place with live alerts.",
     tech: ["Elasticsearch", "Logstash", "Kibana", "Filebeat", "Kubernetes", "Docker"],
     highlights: [
-      { metric: "60%", label: "Faster Detection" },
-      { metric: "20+", label: "Services Covered" },
+      { metric: "80%", label: "Faster Detection" },
+      { metric: "9+", label: "Services Covered" },
       { metric: "Real-time", label: "Alerting" },
     ],
     github: "https://github.com/Cyber-Naimo",
