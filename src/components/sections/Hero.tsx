@@ -39,8 +39,8 @@ export default function Hero() {
         backgroundColor: "#0A0A0A",
       }}
     >
-      {/* 3D scene - very subtle */}
-      <div style={{ position: "absolute", inset: 0, opacity: 0.35 }}>
+      {/* 3D scene */}
+      <div style={{ position: "absolute", inset: 0, opacity: 0.65 }}>
         <HeroScene />
       </div>
 
@@ -51,10 +51,17 @@ export default function Hero() {
         backgroundSize: "60px 60px",
       }} />
 
-      {/* Radial fade */}
+      {/* Radial fade — only top/bottom edges, leave center open for 3D */}
       <div style={{
         position: "absolute", inset: 0, pointerEvents: "none",
-        background: "radial-gradient(ellipse 80% 60% at 50% 0%, transparent 0%, #0A0A0A 85%)",
+        background: "radial-gradient(ellipse 80% 55% at 50% 0%, transparent 0%, #0A0A0A 90%)",
+      }} />
+      {/* Subtle blue glow behind cluster area */}
+      <div style={{
+        position: "absolute", pointerEvents: "none",
+        width: 600, height: 600, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)",
+        top: "50%", left: "50%", transform: "translate(-50%, -50%)",
       }} />
 
       {/* Content */}
@@ -73,6 +80,23 @@ export default function Hero() {
         {/* ── LEFT ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
 
+          {/* Terminal status badge */}
+          <motion.div {...fadeUp(0.05)} style={{ marginBottom: 24 }}>
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: 10,
+              padding: "7px 14px",
+              border: "1px solid rgba(16,185,129,0.25)",
+              borderRadius: 8,
+              background: "rgba(16,185,129,0.06)",
+              backdropFilter: "blur(8px)",
+            }}>
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 8px #10B981", flexShrink: 0, display: "inline-block" }} />
+              <span style={{ fontSize: 11, color: "rgba(16,185,129,0.85)", fontFamily: "var(--font-mono), monospace", letterSpacing: "0.05em" }}>
+                kubectl get pods — all running
+              </span>
+            </div>
+          </motion.div>
+
           {/* Label */}
           <motion.div {...fadeUp(0.1)}>
             <div style={{
@@ -81,7 +105,7 @@ export default function Hero() {
             }}>
               <span style={{
                 fontSize: 11, fontWeight: 600, letterSpacing: "0.15em",
-                color: "rgba(255,255,255,0.35)", textTransform: "uppercase",
+                color: "rgba(255,255,255,0.45)", textTransform: "uppercase",
               }}>
                 DevOps Engineer
               </span>
@@ -183,10 +207,10 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 style={{
-                  width: 38, height: 38,
+                  width: 44, height: 44,
                   display: "flex", alignItems: "center", justifyContent: "center",
                   border: "1px solid rgba(255,255,255,0.1)",
-                  borderRadius: 9,
+                  borderRadius: 10,
                   color: "rgba(255,255,255,0.4)",
                   background: "transparent",
                   textDecoration: "none", transition: "all 0.2s",
@@ -219,7 +243,7 @@ export default function Hero() {
             background: "rgba(255,255,255,0.025)",
             backdropFilter: "blur(12px)",
           }}>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12 }}>Currently</div>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12 }}>Currently</div>
             <div style={{ fontSize: 16, fontWeight: 600, color: "#fff", marginBottom: 4 }}>Associate DevOps Engineer</div>
             <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>Paysys Labs · Aug 2025 – Present</div>
             <div style={{ marginTop: 16, display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -331,8 +355,8 @@ export default function Hero() {
 
       {/* Responsive */}
       <style>{`
-        @media (max-width: 900px) {
-          .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; padding: 100px 24px 60px !important; }
+        @media (max-width: 768px) {
+          .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; padding: 100px 20px 60px !important; }
           .hero-right { display: none !important; }
         }
       `}</style>

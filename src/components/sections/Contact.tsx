@@ -27,7 +27,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", display: "block", marginBottom: 24 }}>
+            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", display: "block", marginBottom: 24 }}>
               Contact
             </span>
             <h2 style={{
@@ -66,7 +66,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            style={{ paddingTop: 56 }}
+            className="contact-right"
           >
             <div style={{ display: "flex", flexDirection: "column", gap: 0, border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, overflow: "hidden" }}>
               {[
@@ -118,12 +118,12 @@ export default function Contact() {
                         }}>
                           <Icon size={17} />
                         </div>
-                        <div>
+                        <div style={{ minWidth: 0, flex: 1 }}>
                           <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginBottom: 3 }}>{label}</div>
-                          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>{value}</div>
+                          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.85)", fontWeight: 500, overflowWrap: "break-word", wordBreak: "break-all" }}>{value}</div>
                         </div>
                       </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                         {copyable && (
                           <button
                             onClick={e => { e.preventDefault(); copyEmail(); }}
@@ -160,9 +160,9 @@ export default function Contact() {
                       }}>
                         <Icon size={17} />
                       </div>
-                      <div>
+                      <div style={{ minWidth: 0 }}>
                         <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginBottom: 3 }}>{label}</div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>{value}</div>
+                        <div style={{ fontSize: 14, color: "rgba(255,255,255,0.85)", fontWeight: 500, overflowWrap: "break-word" }}>{value}</div>
                       </div>
                     </div>
                   )}
@@ -174,9 +174,11 @@ export default function Contact() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .contact-container { padding: 0 24px !important; }
-          .contact-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+        .contact-right { padding-top: 56px; }
+        @media (max-width: 768px) {
+          .contact-container { padding: 0 20px !important; }
+          .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .contact-right { padding-top: 0 !important; }
         }
       `}</style>
     </section>

@@ -25,6 +25,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -34,6 +36,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -107,4 +110,14 @@ body::after {
 /* Cursor hide on interactive when custom cursor active */
 @media (pointer: fine) {
   * { cursor: none !important; }
+}
+
+/* Respect reduced-motion OS setting — kills CSS keyframe animations (orbs, etc.) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto !important; }
 }

@@ -7,6 +7,7 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import BackToTop from "@/components/ui/BackToTop";
 import CommandPalette from "@/components/ui/CommandPalette";
 import CustomCursor from "@/components/ui/CustomCursor";
+import Providers from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,13 +54,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-[#0A0A0A] text-white antialiased">
-        <CustomCursor />
-        <ScrollProgress />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <BackToTop />
-        <CommandPalette />
+        <Providers>
+          <CustomCursor />
+          <ScrollProgress />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <BackToTop />
+          <CommandPalette />
+        </Providers>
       </body>
     </html>
   );

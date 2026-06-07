@@ -73,7 +73,7 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           style={{ marginBottom: 56 }}
         >
-          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase" }}>
+          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase" }}>
             Skills
           </span>
         </motion.div>
@@ -125,16 +125,16 @@ export default function Skills() {
                   boxShadow: `0 0 8px ${group.accent}60`,
                 }} />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 10, letterSpacing: "0.03em" }}>
+                  <div style={{ fontSize: 11, color: group.accent, marginBottom: 10, letterSpacing: "0.06em", fontWeight: 600, textTransform: "uppercase", opacity: 0.75 }}>
                     {group.label}
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                     {group.items.map(item => (
                       <span key={item} style={{
                         fontSize: 13, padding: "4px 12px", borderRadius: 6,
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(255,255,255,0.07)",
-                        color: "rgba(255,255,255,0.75)",
+                        background: `${group.accent}10`,
+                        border: `1px solid ${group.accent}28`,
+                        color: "rgba(255,255,255,0.88)",
                         letterSpacing: "-0.01em",
                       }}>
                         {item}
@@ -151,8 +151,8 @@ export default function Skills() {
       <style>{`
         @keyframes orbFloat1 { 0%,100%{transform:translateY(0) translateX(0)} 50%{transform:translateY(-40px) translateX(20px)} }
         @keyframes orbFloat2 { 0%,100%{transform:translateY(0) translateX(0)} 50%{transform:translateY(30px) translateX(-20px)} }
-        @media (max-width: 900px) {
-          .skills-container { padding: 0 24px !important; }
+        @media (max-width: 768px) {
+          .skills-container { padding: 0 20px !important; }
           .skills-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
         }
       `}</style>

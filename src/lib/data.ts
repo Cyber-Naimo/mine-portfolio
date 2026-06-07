@@ -328,7 +328,7 @@ export const certifications = [
   },
   {
     name: "Google Cloud Computing Foundations",
-    issuer: "Google Cloud / Credly",
+    issuer: "Google Cloud",
     date: "Jul 2024",
     credentialFile: null,
     credentialUrl: "https://www.credly.com/badges/2e5e551d-a72f-4b78-a125-642658b22c10/linked_in_profile",
@@ -336,7 +336,7 @@ export const certifications = [
   },
   {
     name: "Google Cloud Cybersecurity Certificate",
-    issuer: "Google Cloud / Credly",
+    issuer: "Google Cloud",
     date: "2024",
     credentialFile: null,
     credentialUrl: "https://www.credly.com/badges/d284a3fd-3646-41aa-b65b-2e200a9a4d92/public_url",
@@ -344,7 +344,7 @@ export const certifications = [
   },
   {
     name: "Postman API Fundamentals Student Expert",
-    issuer: "Postman / Parchment",
+    issuer: "Postman",
     date: "2024",
     credentialFile: null,
     credentialUrl: "https://badges.parchment.com/public/assertions/Y-A49546QWaJh8gUJVjlAw",

@@ -20,7 +20,7 @@ export default function Projects() {
             viewport={{ once: true }}
             style={{ marginBottom: 16 }}
           >
-            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase" }}>
+            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase" }}>
               Projects
             </span>
           </motion.div>
@@ -49,11 +49,11 @@ export default function Projects() {
       </AnimatePresence>
 
       <style>{`
-        @media (max-width: 900px) {
-          .projects-container { padding: 0 24px !important; }
+        @media (max-width: 768px) {
+          .projects-container { padding: 0 20px !important; }
           .projects-grid { grid-template-columns: 1fr !important; }
         }
-        @media (min-width: 901px) and (max-width: 1100px) {
+        @media (min-width: 769px) and (max-width: 1100px) {
           .projects-grid { grid-template-columns: 1fr 1fr !important; }
         }
       `}</style>

@@ -14,7 +14,7 @@ export default function Achievements() {
           viewport={{ once: true }}
           style={{ marginBottom: 64 }}
         >
-          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", display: "block", marginBottom: 16 }}>
+          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", display: "block", marginBottom: 16 }}>
             Achievements
           </span>
           <h2 style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", color: "#fff", margin: 0, lineHeight: 1.05 }}>
@@ -27,7 +27,7 @@ export default function Achievements() {
 
           {/* Left: Certifications */}
           <div>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.12em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", marginBottom: 24 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.12em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", marginBottom: 24 }}>
               Certifications
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 0, border: "1px solid rgba(255,255,255,0.07)", borderRadius: 14, overflow: "hidden" }}>
@@ -45,8 +45,8 @@ export default function Achievements() {
                     background: "rgba(255,255,255,0.01)",
                     transition: "background 0.2s",
                   }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.03)"}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.01)"}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(59,130,246,0.04)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.01)"; }}
                 >
                   <div style={{
                     width: 38, height: 38, borderRadius: 9, flexShrink: 0,
@@ -93,7 +93,7 @@ export default function Achievements() {
 
           {/* Right: Achievements timeline */}
           <div>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.12em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", marginBottom: 24 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.12em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", marginBottom: 24 }}>
               Milestones
             </div>
             <div style={{ position: "relative" }}>
@@ -131,7 +131,7 @@ export default function Achievements() {
                         <span style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", flexShrink: 0 }}>{item.year}</span>
                       </div>
                       <div style={{ fontSize: 12, color: item.type === "award" ? "rgba(251,191,36,0.6)" : "#3B82F6", marginBottom: 5, fontWeight: 500 }}>{item.org}</div>
-                      <div style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>{item.description}</div>
+                      <div style={{ fontSize: 13, color: "rgba(255,255,255,0.68)", lineHeight: 1.6 }}>{item.description}</div>
                       {item.type === "award" && (
                         <a
                           href="/raising-the-bar-award.jpeg"
@@ -160,8 +160,8 @@ export default function Achievements() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .ach-container { padding: 0 24px !important; }
+        @media (max-width: 768px) {
+          .ach-container { padding: 0 20px !important; }
           .ach-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
         }
       `}</style>

@@ -14,7 +14,7 @@ export default function Experience() {
           viewport={{ once: true }}
           style={{ marginBottom: 64 }}
         >
-          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", display: "block", marginBottom: 16 }}>
+          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", display: "block", marginBottom: 16 }}>
             Experience
           </span>
           <h2 style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", color: "#fff", margin: 0, lineHeight: 1.05 }}>
@@ -112,8 +112,8 @@ export default function Experience() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .exp-container { padding: 0 24px !important; }
+        @media (max-width: 768px) {
+          .exp-container { padding: 0 20px !important; }
           .exp-row { grid-template-columns: 1fr !important; gap: 16px !important; }
         }
       `}</style>

@@ -17,17 +17,17 @@ const pillars = [
   {
     number: "01",
     title: "Reliability First",
-    body: "I run the servers that move real money between countries. If my systems go down, someone can't pay their bills. That's why I work hard to make sure they don't go down, and fix things before anyone else notices.",
+    body: "Real money moves through my systems. Downtime isn't an inconvenience — it's a failed transaction. I build things that don't break.",
   },
   {
     number: "02",
     title: "Proactive, Not Reactive",
-    body: "Nobody asked me to, but I noticed my teammates spending hours just to find one broken payment across 20+ apps. I built a tool that did it in seconds. I like fixing problems before anyone tells me to.",
+    body: "I built a transaction search tool nobody asked for. Saved engineers hours daily. Then got recognized for it.",
   },
   {
     number: "03",
-    title: "Knowledge Spreads, Not Silos",
-    body: "I've taught 20+ engineers at other banks how to use our tools. I write things down, run workshops, and make sure the people around me know what I know, not keep it to myself.",
+    title: "Knowledge Spreads",
+    body: "Trained 20+ engineers at partner banks on Kubernetes and ELK Stack. Knowledge shared is knowledge multiplied.",
   },
 ];
 
@@ -46,7 +46,7 @@ export default function About() {
         >
           <span style={{
             fontSize: 11, fontWeight: 600, letterSpacing: "0.15em",
-            color: "rgba(255,255,255,0.3)", textTransform: "uppercase",
+            color: "rgba(255,255,255,0.5)", textTransform: "uppercase",
           }}>
             About
           </span>
@@ -101,9 +101,11 @@ export default function About() {
         </div>
 
         {/* Pillars — fly in from alternating directions */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, marginBottom: 100, border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, overflow: "hidden" }} className="pillars-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 100 }} className="pillars-grid">
           {pillars.map((p, i) => {
             const from = i === 0 ? { x: -80, opacity: 0 } : i === 1 ? { y: 80, opacity: 0, scale: 0.9 } : { x: 80, opacity: 0 };
+            const accentColors = ["#3B82F6", "#a78bfa", "#10B981"];
+            const color = accentColors[i];
             return (
               <motion.div
                 key={p.number}
@@ -112,14 +114,28 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ type: "spring", bounce: 0.35, duration: 0.9, delay: i * 0.12 }}
                 style={{
-                  padding: "40px 36px",
-                  background: "rgba(255,255,255,0.015)",
-                  borderRight: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                  padding: "36px 32px",
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  borderRadius: 16,
+                  borderTop: `2px solid ${color}`,
+                  transition: "background 0.25s, border-color 0.25s",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
+                  (e.currentTarget as HTMLElement).style.borderColor = `${color}`;
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)";
+                  (e.currentTarget as HTMLElement).style.borderTopColor = color;
                 }}
               >
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: "0.1em", marginBottom: 20 }}>{p.number}</div>
-                <div style={{ fontSize: 17, fontWeight: 700, color: "#fff", marginBottom: 14, letterSpacing: "-0.02em" }}>{p.title}</div>
-                <div style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7 }}>{p.body}</div>
+                <div style={{ fontSize: 28, fontWeight: 800, color: `${color}18`, letterSpacing: "-0.05em", marginBottom: 16, lineHeight: 1 }}>{p.number}</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 12, letterSpacing: "-0.02em" }}>{p.title}</div>
+                <div style={{ fontSize: 14, color: "rgba(255,255,255,0.68)", lineHeight: 1.75 }}>{p.body}</div>
               </motion.div>
             );
           })}
@@ -154,6 +170,7 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ type: "spring", bounce: 0.25, duration: 0.7, delay: i * 0.08 }}
+                  className="timeline-row"
                   style={{
                     display: "flex", alignItems: "center",
                     gap: 28, padding: "20px 0 20px 28px",
@@ -186,7 +203,7 @@ export default function About() {
                   <span style={{ fontSize: 16, fontWeight: t.active ? 700 : 500, color: t.active ? "#fff" : "rgba(255,255,255,0.8)", flex: 1 }}>
                     {t.label}
                   </span>
-                  <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
+                  <span className="tl-sub" style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
                     {t.sub}
                   </span>
                   {t.active && (
@@ -204,10 +221,12 @@ export default function About() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .about-container { padding: 0 24px !important; }
+        @media (max-width: 768px) {
+          .about-container { padding: 0 20px !important; }
           .about-top { grid-template-columns: 1fr !important; gap: 40px !important; }
           .pillars-grid { grid-template-columns: 1fr !important; }
+          .timeline-row { gap: 12px !important; flex-wrap: wrap; }
+          .timeline-row .tl-sub { display: none !important; }
         }
       `}</style>
     </section>
