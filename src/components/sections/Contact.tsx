@@ -42,7 +42,7 @@ export default function Contact() {
             </h2>
             <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, maxWidth: 380, margin: "0 0 40px" }}>
               Open to DevOps, infrastructure, and platform engineering roles.
-              If you&apos;re building something that needs to be reliable at scale — let&apos;s talk.
+              If you&apos;re building something that needs to be reliable at scale, let&apos;s talk.
             </p>
             <a
               href={`mailto:${personalInfo.email}`}

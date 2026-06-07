@@ -230,7 +230,7 @@ export const achievements = [
     title: "Raising the Bar Award",
     org: "Paysys Labs",
     description:
-      "Awarded for exceptional performance — going above and beyond what was asked and delivering work that stood out across the team.",
+      "Awarded for exceptional performance, going above and beyond what was asked and delivering work that stood out across the team.",
     icon: "award",
     type: "award",
   },

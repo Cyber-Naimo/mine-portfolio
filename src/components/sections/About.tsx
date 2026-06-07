@@ -17,7 +17,7 @@ const pillars = [
   {
     number: "01",
     title: "Reliability First",
-    body: "Real money moves through my systems. Downtime isn't an inconvenience — it's a failed transaction. I build things that don't break.",
+    body: "Real money moves through my systems. Downtime isn't an inconvenience, it's a failed transaction. I build things that don't break.",
   },
   {
     number: "02",
@@ -93,7 +93,7 @@ export default function About() {
                 margin: 0,
                 fontStyle: "italic",
               }}>
-                "I fix things before people notice they're broken — and sometimes I fix things
+                "I fix things before people notice they're broken, and sometimes I fix things
                 people didn't even know needed fixing."
               </p>
             </blockquote>
