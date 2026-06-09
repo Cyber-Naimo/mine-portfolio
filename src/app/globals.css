@@ -1,15 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #0A0A0A;
+  /* Backgrounds */
+  --bg-primary:   #0A0A0A;
   --bg-secondary: #111111;
-  --card: #171717;
-  --border: #27272A;
-  --text-primary: #FFFFFF;
-  --text-secondary: #A1A1AA;
-  --accent: #3B82F6;
-  --accent-cyan: #06B6D4;
+  /* Glass surfaces */
+  --surface-a:    rgba(255,255,255,0.02);
+  --surface-b:    rgba(255,255,255,0.05);
+  /* Borders */
+  --border-a:     rgba(255,255,255,0.07);
+  --border-b:     rgba(255,255,255,0.12);
+  --border-c:     rgba(255,255,255,0.22);
+  /* Text */
+  --text-100:     #FFFFFF;
+  --text-80:      rgba(255,255,255,0.85);
+  --text-60:      rgba(255,255,255,0.65);
+  --text-40:      rgba(255,255,255,0.40);
+  --text-20:      rgba(255,255,255,0.20);
+  /* Misc */
+  --grid-color:   rgba(255,255,255,0.018);
+  --vignette:     #0A0A0A;
+  --header-bg:    rgba(10,10,10,0.85);
+  --panel-bg:     rgba(17,17,17,0.97);
+  /* Accent (unchanged across themes) */
+  --accent:       #3B82F6;
+  --accent-cyan:  #06B6D4;
   --accent-green: #10B981;
+}
+
+[data-theme="light"] {
+  --bg-primary:   #FAF5F7;
+  --bg-secondary: #F2EBF0;
+  --surface-a:    rgba(255,255,255,0.55);
+  --surface-b:    rgba(255,255,255,0.82);
+  --border-a:     rgba(130,90,120,0.13);
+  --border-b:     rgba(130,90,120,0.24);
+  --border-c:     rgba(130,90,120,0.38);
+  --text-100:     #1A0F15;
+  --text-80:      rgba(26,15,21,0.88);
+  --text-60:      rgba(26,15,21,0.65);
+  --text-40:      rgba(26,15,21,0.44);
+  --text-20:      rgba(26,15,21,0.28);
+  --grid-color:   rgba(0,0,0,0.035);
+  --vignette:     #FAF5F7;
+  --header-bg:    rgba(250,245,247,0.88);
+  --panel-bg:     rgba(242,235,240,0.98);
 }
 
 @theme inline {
@@ -31,7 +66,7 @@ html {
 
 body {
   background: var(--bg-primary);
-  color: var(--text-primary);
+  color: var(--text-100);
   font-family: var(--font-geist-sans), 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,16 +81,16 @@ body {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--border-b);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: var(--border-c);
 }
 
 ::selection {
   background: rgba(59, 130, 246, 0.3);
-  color: #fff;
+  color: var(--text-100);
 }
 
 :focus-visible {
@@ -89,12 +124,12 @@ body {
 
 .grid-bg {
   background-image:
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
-/* Film grain overlay — applied on body::after */
+/* Film grain overlay */
 body::after {
   content: '';
   position: fixed;
@@ -107,12 +142,12 @@ body::after {
   background-size: 128px 128px;
 }
 
-/* Cursor hide on interactive when custom cursor active */
-@media (pointer: fine) {
-  * { cursor: none !important; }
+[data-theme="light"] body::after {
+  opacity: 0.018;
 }
 
-/* Respect reduced-motion OS setting — kills CSS keyframe animations (orbs, etc.) */
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

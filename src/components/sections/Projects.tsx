@@ -9,10 +9,9 @@ export default function Projects() {
   const [selected, setSelected] = useState<(typeof projects)[0] | null>(null);
 
   return (
-    <section id="projects" style={{ background: "#0A0A0A", padding: "120px 0" }}>
+    <section id="projects" style={{ background: "var(--bg-primary)", padding: "120px 0" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }} className="projects-container">
 
-        {/* Header */}
         <div style={{ marginBottom: 64 }}>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -20,7 +19,7 @@ export default function Projects() {
             viewport={{ once: true }}
             style={{ marginBottom: 16 }}
           >
-            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase" }}>
+            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "var(--text-40)", textTransform: "uppercase" }}>
               Projects
             </span>
           </motion.div>
@@ -29,14 +28,13 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", color: "#fff", margin: 0, lineHeight: 1.05 }}
+            style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text-100)", margin: 0, lineHeight: 1.05 }}
           >
             Work that ships<br />
-            <span style={{ color: "rgba(255,255,255,0.3)" }}>to production.</span>
+            <span style={{ color: "var(--text-20)" }}>to production.</span>
           </motion.h2>
         </div>
 
-        {/* Single unified grid — no gaps */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }} className="projects-grid">
           {projects.map((project, i) => (
             <ProjectCard key={project.slug} project={project} index={i} onClick={() => setSelected(project)} />
@@ -87,8 +85,8 @@ function ProjectCard({ project, index, onClick }: { project: (typeof projects)[0
 
   const onEnter = useCallback(() => {
     if (innerRef.current) {
-      innerRef.current.style.borderColor = "rgba(255,255,255,0.14)";
-      innerRef.current.style.background = "rgba(255,255,255,0.04)";
+      innerRef.current.style.borderColor = "var(--border-c)";
+      innerRef.current.style.background = "var(--surface-b)";
     }
   }, []);
 
@@ -100,13 +98,11 @@ function ProjectCard({ project, index, onClick }: { project: (typeof projects)[0
     setTimeout(() => { if (wrapRef.current) wrapRef.current.style.transition = ""; }, 560);
     if (shineRef.current) shineRef.current.style.opacity = "0";
     if (innerRef.current) {
-      innerRef.current.style.borderColor = "rgba(255,255,255,0.07)";
-      innerRef.current.style.background = "rgba(255,255,255,0.02)";
+      innerRef.current.style.borderColor = "var(--border-a)";
+      innerRef.current.style.background = "var(--surface-a)";
     }
   }, []);
 
-  // Outer plain div = tilt (no Framer Motion conflict)
-  // Inner motion.div = scroll-entrance animation
   return (
     <div
       ref={wrapRef}
@@ -114,7 +110,7 @@ function ProjectCard({ project, index, onClick }: { project: (typeof projects)[0
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       onClick={onClick}
-      style={{ willChange: "transform", cursor: "pointer" }}
+      style={{ willChange: "transform", cursor: "pointer", height: "100%" }}
     >
       <motion.div
         ref={innerRef}
@@ -124,22 +120,23 @@ function ProjectCard({ project, index, onClick }: { project: (typeof projects)[0
         transition={{ type: "spring", bounce: 0.32, duration: 0.85, delay: index * 0.1 }}
         style={{
           padding: "28px",
-          border: "1px solid rgba(255,255,255,0.07)",
+          border: "1px solid var(--border-a)",
           borderRadius: 16,
-          background: "rgba(255,255,255,0.02)",
+          background: "var(--surface-a)",
           position: "relative",
           overflow: "hidden",
           transition: "border-color 0.2s, background 0.2s",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        {/* Specular shine overlay */}
         <div ref={shineRef} style={{
           position: "absolute", inset: 0, borderRadius: 16,
           pointerEvents: "none", opacity: 0,
           transition: "opacity 0.3s", zIndex: 1,
         }} />
 
-        {/* Top row */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <span style={{
             fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
@@ -148,39 +145,36 @@ function ProjectCard({ project, index, onClick }: { project: (typeof projects)[0
           }}>
             {project.category}
           </span>
-          <ArrowUpRight size={16} color="rgba(255,255,255,0.2)" />
+          <ArrowUpRight size={16} color="var(--text-20)" />
         </div>
 
-        {/* Title */}
-        <h3 style={{ fontSize: 18, fontWeight: 700, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+        <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--text-100)", margin: "0 0 8px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
           {project.title}
         </h3>
-        <p style={{ fontSize: 13, color: "rgba(255,255,255,0.62)", margin: "0 0 24px", lineHeight: 1.6 }}>
+        <p style={{ fontSize: 13, color: "var(--text-60)", margin: "0 0 24px", lineHeight: 1.6, flex: 1 }}>
           {project.subtitle}
         </p>
 
-        {/* Metrics */}
         <div style={{ display: "flex", gap: 24, marginBottom: 20 }}>
           {project.highlights.slice(0, 3).map(h => (
             <div key={h.label}>
-              <div style={{ fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: "-0.03em", lineHeight: 1 }}>{h.metric}</div>
-              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", marginTop: 3, letterSpacing: "0.04em" }}>{h.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: "var(--text-100)", letterSpacing: "-0.03em", lineHeight: 1 }}>{h.metric}</div>
+              <div style={{ fontSize: 10, color: "var(--text-20)", marginTop: 3, letterSpacing: "0.04em" }}>{h.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Tech */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {project.tech.slice(0, 4).map(t => (
             <span key={t} style={{
               fontSize: 11, padding: "3px 8px", borderRadius: 5,
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.07)",
-              color: "rgba(255,255,255,0.45)",
+              background: "var(--surface-b)",
+              border: "1px solid var(--border-a)",
+              color: "var(--text-40)",
             }}>{t}</span>
           ))}
           {project.tech.length > 4 && (
-            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.25)" }}>+{project.tech.length - 4}</span>
+            <span style={{ fontSize: 11, color: "var(--text-20)" }}>+{project.tech.length - 4}</span>
           )}
         </div>
       </motion.div>
@@ -212,32 +206,30 @@ function ProjectModal({ project, onClose }: { project: (typeof projects)[0]; onC
         style={{
           width: "100%", maxWidth: 640,
           maxHeight: "85vh", overflowY: "auto",
-          border: "1px solid rgba(255,255,255,0.1)",
+          border: "1px solid var(--border-b)",
           borderRadius: 20,
-          background: "#111111",
+          background: "var(--bg-secondary)",
           padding: 36,
         }}
       >
-        {/* Header */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
           <div>
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: "#fff", margin: "0 0 6px", letterSpacing: "-0.02em" }}>{project.title}</h2>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", margin: 0 }}>{project.subtitle}</p>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: "var(--text-100)", margin: "0 0 6px", letterSpacing: "-0.02em" }}>{project.title}</h2>
+            <p style={{ fontSize: 13, color: "var(--text-40)", margin: 0 }}>{project.subtitle}</p>
           </div>
           <button onClick={onClose} style={{
-            width: 34, height: 34, borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)",
-            background: "transparent", color: "rgba(255,255,255,0.5)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
+            width: 34, height: 34, borderRadius: 8, border: "1px solid var(--border-b)",
+            background: "transparent", color: "var(--text-40)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
           }}>
             <X size={16} />
           </button>
         </div>
 
-        {/* Metrics */}
-        <div style={{ display: "flex", gap: 24, padding: "20px 0", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)", marginBottom: 28 }}>
+        <div style={{ display: "flex", gap: 24, padding: "20px 0", borderTop: "1px solid var(--border-a)", borderBottom: "1px solid var(--border-a)", marginBottom: 28 }}>
           {project.highlights.map(h => (
             <div key={h.label} style={{ flex: 1, textAlign: "center" }}>
-              <div style={{ fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.03em" }}>{h.metric}</div>
-              <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 4 }}>{h.label}</div>
+              <div style={{ fontSize: 26, fontWeight: 800, color: "var(--text-100)", letterSpacing: "-0.03em" }}>{h.metric}</div>
+              <div style={{ fontSize: 11, color: "var(--text-40)", marginTop: 4 }}>{h.label}</div>
             </div>
           ))}
         </div>
@@ -248,29 +240,29 @@ function ProjectModal({ project, onClose }: { project: (typeof projects)[0]; onC
           { title: "Architecture", text: project.architecture },
         ].map(s => (
           <div key={s.title} style={{ marginBottom: 22 }}>
-            <div style={{ fontSize: 10, fontWeight: 600, color: "rgba(255,255,255,0.3)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8 }}>
+            <div style={{ fontSize: 10, fontWeight: 600, color: "var(--text-40)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8 }}>
               {s.title}
             </div>
-            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.72)", margin: 0, lineHeight: 1.7 }}>{s.text}</p>
+            <p style={{ fontSize: 14, color: "var(--text-60)", margin: 0, lineHeight: 1.7 }}>{s.text}</p>
           </div>
         ))}
 
         <div style={{ marginBottom: 22 }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: "rgba(255,255,255,0.3)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 10 }}>Impact</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: "var(--text-40)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 10 }}>Impact</div>
           {project.impact.map(i => (
             <div key={i} style={{ display: "flex", gap: 10, marginBottom: 8 }}>
               <span style={{ color: "#10B981", fontSize: 13, marginTop: 1, flexShrink: 0 }}>✓</span>
-              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.72)", lineHeight: 1.6 }}>{i}</span>
+              <span style={{ fontSize: 13, color: "var(--text-60)", lineHeight: 1.6 }}>{i}</span>
             </div>
           ))}
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, paddingTop: 20, borderTop: "1px solid var(--border-a)" }}>
           {project.tech.map(t => (
             <span key={t} style={{
               fontSize: 12, padding: "4px 10px", borderRadius: 6,
-              background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)",
-              color: "rgba(255,255,255,0.6)",
+              background: "var(--surface-b)", border: "1px solid var(--border-a)",
+              color: "var(--text-60)",
             }}>{t}</span>
           ))}
         </div>
@@ -280,8 +272,8 @@ function ProjectModal({ project, onClose }: { project: (typeof projects)[0]; onC
             <a href={project.github} target="_blank" rel="noopener noreferrer" style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               padding: "10px 18px", borderRadius: 10,
-              border: "1px solid rgba(255,255,255,0.1)", background: "transparent",
-              color: "rgba(255,255,255,0.6)", fontSize: 13, fontWeight: 600,
+              border: "1px solid var(--border-b)", background: "transparent",
+              color: "var(--text-60)", fontSize: 13, fontWeight: 600,
               textDecoration: "none", transition: "all 0.2s",
             }}>
               <Github size={15} /> GitHub

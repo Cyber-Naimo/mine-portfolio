@@ -1,18 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download, ArrowUpRight } from "lucide-react";
+import { Menu, X, Download, ArrowUpRight, Sun, Moon } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 import NKLogo from "@/components/ui/NKLogo";
+import { useTheme } from "@/context/ThemeContext";
 
 const navLinks = [
   { label: "Home",         href: "#home" },
   { label: "About",        href: "#about" },
   { label: "Skills",       href: "#skills" },
   { label: "Projects",     href: "#projects" },
-  { label: "Achievements", href: "#achievements" },
   { label: "Experience",   href: "#experience" },
+  { label: "Achievements", href: "#achievements" },
   { label: "Contact",      href: "#contact" },
 ];
 
@@ -20,18 +21,22 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive]     = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggle } = useTheme();
+  const suppressRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
-      const ids = navLinks.map((l) => l.href.slice(1));
-      for (const id of [...ids].reverse()) {
+      if (suppressRef.current) return; // ignore during programmatic scroll
+      const ids = navLinks.map(l => l.href.slice(1));
+      let current = "home";
+      for (const id of ids) {
         const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 100) {
-          setActive(id);
-          break;
+        if (el && el.getBoundingClientRect().top < 180) {
+          current = id;
         }
       }
+      setActive(current);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -40,7 +45,11 @@ export default function Header() {
 
   const go = (href: string) => {
     setMenuOpen(false);
-    document.getElementById(href.slice(1))?.scrollIntoView({ behavior: "smooth" });
+    const id = href.slice(1);
+    setActive(id);
+    suppressRef.current = true;
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => { suppressRef.current = false; }, 1200);
   };
 
   return (
@@ -57,12 +66,10 @@ export default function Header() {
           zIndex: 50,
           transition: "padding 0.3s, background 0.3s, border-color 0.3s",
           padding: scrolled ? "10px 0" : "20px 0",
-          background: scrolled
-            ? "rgba(10,10,10,0.85)"
-            : "transparent",
+          background: scrolled ? "var(--header-bg)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "1px solid transparent",
+          borderBottom: scrolled ? "1px solid var(--border-a)" : "1px solid transparent",
         }}
       >
         <div style={{
@@ -93,7 +100,7 @@ export default function Header() {
             <span style={{
               fontSize: 14,
               fontWeight: 600,
-              color: "rgba(255,255,255,0.65)",
+              color: "var(--text-60)",
               letterSpacing: "-0.01em",
               display: "none",
             }}
@@ -109,8 +116,8 @@ export default function Header() {
             gap: 2,
             padding: "5px 6px",
             borderRadius: 50,
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.1)",
+            background: "var(--surface-b)",
+            border: "1px solid var(--border-b)",
           }}
           className="desktop-nav">
             {navLinks.map((link) => {
@@ -127,16 +134,16 @@ export default function Header() {
                     fontWeight: 500,
                     border: "none",
                     cursor: "pointer",
-                    background: isActive ? "rgba(255,255,255,0.1)" : "transparent",
-                    color: isActive ? "#fff" : "rgba(255,255,255,0.5)",
+                    background: isActive ? "var(--surface-b)" : "transparent",
+                    color: isActive ? "var(--text-100)" : "var(--text-40)",
                     transition: "all 0.2s",
                     letterSpacing: "-0.01em",
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive) (e.target as HTMLElement).style.color = "rgba(255,255,255,0.85)";
+                    if (!isActive) (e.target as HTMLElement).style.color = "var(--text-80)";
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) (e.target as HTMLElement).style.color = "rgba(255,255,255,0.5)";
+                    if (!isActive) (e.target as HTMLElement).style.color = "var(--text-40)";
                   }}
                 >
                   {isActive && (
@@ -146,8 +153,8 @@ export default function Header() {
                         position: "absolute",
                         inset: 0,
                         borderRadius: 50,
-                        background: "rgba(255,255,255,0.09)",
-                        border: "1px solid rgba(255,255,255,0.12)",
+                        background: "var(--surface-b)",
+                        border: "1px solid var(--border-b)",
                       }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
@@ -158,9 +165,39 @@ export default function Header() {
             })}
           </nav>
 
-          {/* ── CTA (desktop) ── */}
+          {/* ── RIGHT: theme toggle + CTA (desktop) ── */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}
                className="desktop-cta">
+
+            {/* Theme toggle */}
+            <button
+              onClick={toggle}
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 36, height: 36,
+                borderRadius: 10,
+                border: "1px solid var(--border-b)",
+                background: "var(--surface-a)",
+                color: "var(--text-60)",
+                cursor: "pointer",
+                flexShrink: 0,
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.color = "var(--text-100)";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--border-c)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.color = "var(--text-60)";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--border-b)";
+              }}
+            >
+              {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
+
             <a
               href={`mailto:${personalInfo.email}`}
               style={{
@@ -171,20 +208,20 @@ export default function Header() {
                 borderRadius: 50,
                 fontSize: 13,
                 fontWeight: 600,
-                color: "rgba(255,255,255,0.65)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                background: "rgba(255,255,255,0.04)",
+                color: "var(--text-60)",
+                border: "1px solid var(--border-b)",
+                background: "var(--surface-a)",
                 textDecoration: "none",
                 transition: "all 0.2s",
                 letterSpacing: "-0.01em",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "#fff";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.25)";
+                (e.currentTarget as HTMLElement).style.color = "var(--text-100)";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--border-c)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.65)";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.12)";
+                (e.currentTarget as HTMLElement).style.color = "var(--text-60)";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--border-b)";
               }}
             >
               Hire me
@@ -224,41 +261,60 @@ export default function Header() {
             </a>
           </div>
 
-          {/* ── HAMBURGER ── */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="mobile-menu-btn"
-            style={{
-              display: "none",
-              width: 38,
-              height: 38,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 10,
-              border: "1px solid rgba(255,255,255,0.1)",
-              background: "rgba(255,255,255,0.05)",
-              color: "rgba(255,255,255,0.7)",
-              cursor: "pointer",
-              flexShrink: 0,
-            }}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {menuOpen
-                ? <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }} style={{ display: "flex" }}><X size={17} /></motion.span>
-                : <motion.span key="m" initial={{ rotate: 90, opacity: 0 }}  animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }} style={{ display: "flex" }}><Menu size={17} /></motion.span>
-              }
-            </AnimatePresence>
-          </button>
+          {/* ── MOBILE RIGHT: theme toggle + hamburger ── */}
+          <div style={{ display: "none", alignItems: "center", gap: 8 }} className="mobile-right">
+            <button
+              onClick={toggle}
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 38, height: 38,
+                borderRadius: 10,
+                border: "1px solid var(--border-b)",
+                background: "var(--surface-a)",
+                color: "var(--text-60)",
+                cursor: "pointer",
+              }}
+            >
+              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="mobile-menu-btn"
+              style={{
+                display: "flex",
+                width: 38,
+                height: 38,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 10,
+                border: "1px solid var(--border-b)",
+                background: "var(--surface-a)",
+                color: "var(--text-60)",
+                cursor: "pointer",
+                flexShrink: 0,
+              }}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {menuOpen
+                  ? <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }} style={{ display: "flex" }}><X size={17} /></motion.span>
+                  : <motion.span key="m" initial={{ rotate: 90, opacity: 0 }}  animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }} style={{ display: "flex" }}><Menu size={17} /></motion.span>
+                }
+              </AnimatePresence>
+            </button>
+          </div>
         </div>
       </motion.header>
 
-      {/* Responsive styles injected via style tag */}
+      {/* Responsive styles */}
       <style>{`
         @media (max-width: 767px) {
           .desktop-nav { display: none !important; }
           .desktop-cta { display: none !important; }
-          .mobile-menu-btn { display: flex !important; }
+          .mobile-right { display: flex !important; }
           .logo-name { display: none !important; }
         }
         @media (min-width: 1024px) {
@@ -294,11 +350,11 @@ export default function Header() {
                 top: 64, left: 12, right: 12,
                 zIndex: 50,
                 borderRadius: 20,
-                border: "1px solid rgba(255,255,255,0.1)",
-                background: "rgba(17,17,17,0.97)",
+                border: "1px solid var(--border-b)",
+                background: "var(--panel-bg)",
                 backdropFilter: "blur(24px)",
                 overflow: "hidden",
-                boxShadow: "0 25px 60px rgba(0,0,0,0.7)",
+                boxShadow: "0 25px 60px rgba(0,0,0,0.3)",
               }}
             >
               <nav style={{ padding: 10, display: "flex", flexDirection: "column", gap: 2 }}>
@@ -321,8 +377,8 @@ export default function Header() {
                         fontWeight: 500,
                         border: "none",
                         cursor: "pointer",
-                        background: isActive ? "rgba(255,255,255,0.07)" : "transparent",
-                        color: isActive ? "#fff" : "rgba(255,255,255,0.55)",
+                        background: isActive ? "var(--surface-b)" : "transparent",
+                        color: isActive ? "var(--text-100)" : "var(--text-60)",
                         textAlign: "left",
                         width: "100%",
                         letterSpacing: "-0.01em",
@@ -341,7 +397,7 @@ export default function Header() {
                   );
                 })}
               </nav>
-              <div style={{ margin: "0 10px", height: 1, background: "rgba(255,255,255,0.06)" }} />
+              <div style={{ margin: "0 10px", height: 1, background: "var(--border-a)" }} />
               <div style={{ padding: 10, display: "flex", flexDirection: "column", gap: 8 }}>
                 <a
                   href={`mailto:${personalInfo.email}`}
@@ -349,9 +405,9 @@ export default function Header() {
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                     padding: "12px", borderRadius: 12,
-                    fontSize: 15, fontWeight: 600, color: "rgba(255,255,255,0.7)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    background: "rgba(255,255,255,0.04)",
+                    fontSize: 15, fontWeight: 600, color: "var(--text-60)",
+                    border: "1px solid var(--border-b)",
+                    background: "var(--surface-a)",
                     textDecoration: "none",
                   }}
                 >

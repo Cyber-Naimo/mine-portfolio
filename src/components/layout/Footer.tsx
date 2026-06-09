@@ -6,22 +6,25 @@ import NKLogo from "@/components/ui/NKLogo";
 
 export default function Footer() {
   return (
-    <footer style={{
-      borderTop: "1px solid rgba(255,255,255,0.06)",
-      background: "#0A0A0A",
-      padding: "28px 88px",
-    }}>
-      <div style={{
+    <footer
+      className="site-footer"
+      style={{
+        borderTop: "1px solid var(--border-a)",
+        background: "var(--bg-primary)",
+        padding: "28px 88px",
+      }}
+    >
+      <div className="footer-inner" style={{
         maxWidth: 1280, margin: "0 auto",
         display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16,
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <NKLogo size={28} />
-          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.3)" }}>
+          <span style={{ fontSize: 13, color: "var(--text-40)" }}>
             {personalInfo.name}
           </span>
         </div>
-        <span style={{ fontSize: 12, color: "rgba(255,255,255,0.2)" }}>
+        <span style={{ fontSize: 12, color: "var(--text-20)" }}>
           © {new Date().getFullYear()} · Built with Next.js
         </span>
         <div style={{ display: "flex", gap: 8 }}>
@@ -38,19 +41,25 @@ export default function Footer() {
               aria-label={label}
               style={{
                 width: 32, height: 32, borderRadius: 8,
-                border: "1px solid rgba(255,255,255,0.08)",
+                border: "1px solid var(--border-a)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                color: "rgba(255,255,255,0.3)", textDecoration: "none",
+                color: "var(--text-40)", textDecoration: "none",
                 transition: "all 0.2s",
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#fff"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.3)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--text-100)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border-c)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--text-40)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border-a)"; }}
             >
               <Icon size={14} />
             </a>
           ))}
         </div>
       </div>
+      <style>{`
+        @media (max-width: 768px) {
+          .site-footer { padding: 24px 20px !important; }
+          .footer-inner { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 16px !important; }
+        }
+      `}</style>
     </footer>
   );
 }

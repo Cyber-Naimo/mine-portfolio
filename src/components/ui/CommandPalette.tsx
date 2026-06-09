@@ -135,6 +135,7 @@ export default function CommandPalette() {
         transition={{ delay: 2, type: "spring", stiffness: 400, damping: 25 }}
         onClick={() => setOpen(true)}
         title="Quick nav  ⌘K"
+        className="cmd-trigger"
         style={{
           position: "fixed", bottom: 28, left: 28, zIndex: 49,
           width: 44, height: 44, borderRadius: "50%",
@@ -327,6 +328,9 @@ export default function CommandPalette() {
           </>
         )}
       </AnimatePresence>
+      <style>{`
+        @media (max-width: 767px) { .cmd-trigger { display: none !important; } }
+      `}</style>
     </>
   );
 }

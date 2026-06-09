@@ -3,52 +3,19 @@
 import { motion } from "framer-motion";
 
 const groups = [
-  {
-    label: "Container & Orchestration",
-    items: ["Kubernetes", "EKS Anywhere", "Helm", "Docker"],
-    accent: "#3B82F6",
-  },
-  {
-    label: "CI/CD & Automation",
-    items: ["GitLab CI", "Jenkins", "GitHub Actions", "ArgoCD"],
-    accent: "#8B5CF6",
-  },
-  {
-    label: "Observability",
-    items: ["ELK Stack", "Prometheus", "Grafana", "Kibana", "Filebeat", "Logstash"],
-    accent: "#06B6D4",
-  },
-  {
-    label: "Cloud",
-    items: ["Google Cloud (GCP)", "Amazon Web Services (AWS)"],
-    accent: "#10B981",
-  },
-  {
-    label: "Security & DevSecOps",
-    items: ["Trivy", "SonarQube", "Penetration Testing", "API Security"],
-    accent: "#F59E0B",
-  },
-  {
-    label: "Infrastructure as Code",
-    items: ["Terraform", "Ansible", "Helm Charts"],
-    accent: "#EC4899",
-  },
-  {
-    label: "Disaster Recovery",
-    items: ["Velero", "MinIO", "OpenEBS"],
-    accent: "#10B981",
-  },
-  {
-    label: "Languages & Scripting",
-    items: ["Bash", "Python", "YAML", "SQL", "JavaScript"],
-    accent: "#A1A1AA",
-  },
+  { label: "Container & Orchestration", items: ["Kubernetes", "EKS Anywhere", "Helm", "Docker"], accent: "#3B82F6" },
+  { label: "CI/CD & Automation", items: ["GitLab CI", "Jenkins", "GitHub Actions", "ArgoCD"], accent: "#8B5CF6" },
+  { label: "Observability", items: ["ELK Stack", "Prometheus", "Grafana", "Kibana", "Filebeat", "Logstash"], accent: "#06B6D4" },
+  { label: "Cloud", items: ["Google Cloud (GCP)", "Amazon Web Services (AWS)"], accent: "#10B981" },
+  { label: "Security & DevSecOps", items: ["Trivy", "SonarQube", "Penetration Testing", "API Security"], accent: "#F59E0B" },
+  { label: "Infrastructure as Code", items: ["Terraform", "Ansible", "Helm Charts"], accent: "#EC4899" },
+  { label: "Disaster Recovery", items: ["Velero", "MinIO", "OpenEBS"], accent: "#10B981" },
+  { label: "Languages & Scripting", items: ["Bash", "Python", "YAML", "SQL", "JavaScript"], accent: "#A1A1AA" },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ background: "#111111", padding: "120px 0", position: "relative", overflow: "hidden" }}>
-      {/* Ambient orbs */}
+    <section id="skills" style={{ background: "var(--bg-secondary)", padding: "120px 0", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
         <div style={{
           position: "absolute", width: 700, height: 700, borderRadius: "50%",
@@ -65,7 +32,6 @@ export default function Skills() {
       </div>
 
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 1 }} className="skills-container">
-
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,13 +39,12 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           style={{ marginBottom: 56 }}
         >
-          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase" }}>
+          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "var(--text-40)", textTransform: "uppercase" }}>
             Skills
           </span>
         </motion.div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "start" }} className="skills-grid">
-          {/* Headline */}
           <motion.div
             initial={{ opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -89,18 +54,17 @@ export default function Skills() {
             <h2 style={{
               fontSize: "clamp(32px, 3.5vw, 52px)",
               fontWeight: 800, lineHeight: 1.05,
-              letterSpacing: "-0.03em", color: "#fff", margin: "0 0 20px",
+              letterSpacing: "-0.03em", color: "var(--text-100)", margin: "0 0 20px",
             }}>
               Every tool here<br />
-              <span style={{ color: "rgba(255,255,255,0.3)" }}>used in production.</span>
+              <span style={{ color: "var(--text-20)" }}>used in production.</span>
             </h2>
-            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, maxWidth: 360, margin: 0 }}>
+            <p style={{ fontSize: 15, color: "var(--text-60)", lineHeight: 1.7, maxWidth: 360, margin: 0 }}>
               Not practice projects. Real systems, real traffic, real money moving through these tools every day.
             </p>
           </motion.div>
 
-          {/* Skill groups */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 0, border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, overflow: "hidden" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 0, border: "1px solid var(--border-a)", borderRadius: 16, overflow: "hidden" }}>
             {groups.map((group, i) => (
               <motion.div
                 key={group.label}
@@ -111,13 +75,13 @@ export default function Skills() {
                 style={{
                   display: "flex", alignItems: "flex-start",
                   padding: "20px 24px",
-                  borderBottom: i < groups.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                  borderBottom: i < groups.length - 1 ? "1px solid var(--border-a)" : "none",
                   gap: 20,
-                  background: "rgba(255,255,255,0.01)",
+                  background: "var(--surface-a)",
                   transition: "background 0.2s",
                 }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.03)"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.01)"}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--surface-b)"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "var(--surface-a)"}
               >
                 <div style={{
                   width: 6, height: 6, borderRadius: "50%",
@@ -134,7 +98,7 @@ export default function Skills() {
                         fontSize: 13, padding: "4px 12px", borderRadius: 6,
                         background: `${group.accent}10`,
                         border: `1px solid ${group.accent}28`,
-                        color: "rgba(255,255,255,0.88)",
+                        color: "var(--text-80)",
                         letterSpacing: "-0.01em",
                       }}>
                         {item}

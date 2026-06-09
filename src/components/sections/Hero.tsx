@@ -6,12 +6,13 @@ import { ArrowDown, Github, Linkedin, Mail, ArrowRight } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import Typewriter from "@/components/ui/Typewriter";
+import { useTheme } from "@/context/ThemeContext";
 
 const TYPEWRITER_PHRASES = [
   "Kubernetes that stays up when it counts.",
   "CI/CD across 20+ services, two countries.",
   "Observability before the alert fires.",
-  "Disaster recovery — tested, not assumed.",
+  "Disaster recovery, tested, not assumed.",
   "Self-hosted tools that cut licensing costs.",
 ];
 
@@ -27,6 +28,8 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Hero() {
+  const { theme } = useTheme();
+
   return (
     <section
       id="home"
@@ -36,27 +39,38 @@ export default function Hero() {
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
-        backgroundColor: "#0A0A0A",
+        backgroundColor: "var(--bg-primary)",
       }}
     >
-      {/* 3D scene */}
-      <div style={{ position: "absolute", inset: 0, opacity: 0.65 }}>
+      {/* 3D scene — dark mode only (additive blending invisible on light bg) */}
+      <div style={{ position: "absolute", inset: 0, opacity: theme === "dark" ? 0.65 : 0, transition: "opacity 0.4s", pointerEvents: theme === "light" ? "none" : undefined }}>
         <HeroScene />
       </div>
+
+      {/* Light mode animation — floating gradient blobs */}
+      {theme === "light" && (
+        <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+          <div className="hero-blob hero-blob-1" />
+          <div className="hero-blob hero-blob-2" />
+          <div className="hero-blob hero-blob-3" />
+          <div className="hero-blob hero-blob-4" />
+        </div>
+      )}
 
       {/* Grid overlay */}
       <div style={{
         position: "absolute", inset: 0, pointerEvents: "none",
-        backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
+        backgroundImage: "linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px)",
         backgroundSize: "60px 60px",
       }} />
 
-      {/* Radial fade — only top/bottom edges, leave center open for 3D */}
+      {/* Radial fade — top edge */}
       <div style={{
         position: "absolute", inset: 0, pointerEvents: "none",
-        background: "radial-gradient(ellipse 80% 55% at 50% 0%, transparent 0%, #0A0A0A 90%)",
+        background: "radial-gradient(ellipse 80% 55% at 50% 0%, transparent 0%, var(--vignette) 90%)",
       }} />
-      {/* Subtle blue glow behind cluster area */}
+
+      {/* Subtle accent glow */}
       <div style={{
         position: "absolute", pointerEvents: "none",
         width: 600, height: 600, borderRadius: "50%",
@@ -80,40 +94,14 @@ export default function Hero() {
         {/* ── LEFT ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
 
-          {/* Terminal status badge */}
-          <motion.div {...fadeUp(0.05)} style={{ marginBottom: 24 }}>
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: 10,
-              padding: "7px 14px",
-              border: "1px solid rgba(16,185,129,0.25)",
-              borderRadius: 8,
-              background: "rgba(16,185,129,0.06)",
-              backdropFilter: "blur(8px)",
-            }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 8px #10B981", flexShrink: 0, display: "inline-block" }} />
-              <span style={{ fontSize: 11, color: "rgba(16,185,129,0.85)", fontFamily: "var(--font-mono), monospace", letterSpacing: "0.05em" }}>
-                kubectl get pods — all running
-              </span>
-            </div>
-          </motion.div>
-
           {/* Label */}
           <motion.div {...fadeUp(0.1)}>
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              marginBottom: 32,
-            }}>
-              <span style={{
-                fontSize: 11, fontWeight: 600, letterSpacing: "0.15em",
-                color: "rgba(255,255,255,0.45)", textTransform: "uppercase",
-              }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 32 }}>
+              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "var(--text-40)", textTransform: "uppercase" }}>
                 DevOps Engineer
               </span>
-              <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
-              <span style={{
-                fontSize: 11, fontWeight: 600, letterSpacing: "0.15em",
-                color: "#3B82F6", textTransform: "uppercase",
-              }}>
+              <span style={{ color: "var(--text-20)" }}>·</span>
+              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "#3B82F6", textTransform: "uppercase" }}>
                 Paysys Labs
               </span>
             </div>
@@ -123,11 +111,9 @@ export default function Hero() {
           <motion.div {...fadeUp(0.2)} style={{ marginBottom: 24 }}>
             <h1 style={{
               fontSize: "clamp(52px, 7vw, 88px)",
-              fontWeight: 800,
-              lineHeight: 0.95,
+              fontWeight: 800, lineHeight: 0.95,
               letterSpacing: "-0.04em",
-              color: "#fff",
-              margin: 0,
+              color: "var(--text-100)", margin: 0,
             }}>
               Muhammad<br />
               <span style={{
@@ -141,16 +127,12 @@ export default function Hero() {
             </h1>
           </motion.div>
 
-          {/* Value prop — typewriter */}
+          {/* Typewriter */}
           <motion.div {...fadeUp(0.3)} style={{ marginBottom: 40 }}>
             <p style={{
-              fontSize: "clamp(15px, 1.6vw, 18px)",
-              lineHeight: 1.6,
-              color: "rgba(255,255,255,0.65)",
-              maxWidth: 460,
-              margin: 0,
-              fontWeight: 400,
-              minHeight: "1.6em",
+              fontSize: "clamp(15px, 1.6vw, 18px)", lineHeight: 1.6,
+              color: "var(--text-60)", maxWidth: 460, margin: 0,
+              fontWeight: 400, minHeight: "1.6em",
             }}>
               <Typewriter phrases={TYPEWRITER_PHRASES} speed={40} pause={2600} />
             </p>
@@ -163,14 +145,13 @@ export default function Hero() {
               style={{
                 display: "flex", alignItems: "center", gap: 8,
                 padding: "13px 24px",
-                background: "#fff", color: "#0A0A0A",
+                background: "var(--text-100)", color: "var(--bg-primary)",
                 border: "none", borderRadius: 10,
                 fontSize: 14, fontWeight: 700,
-                cursor: "pointer", letterSpacing: "-0.01em",
-                transition: "all 0.2s",
+                cursor: "pointer", letterSpacing: "-0.01em", transition: "all 0.2s",
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.9)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = "0.85"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = "1"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
             >
               View Work <ArrowRight size={15} strokeWidth={2.5} />
             </button>
@@ -180,14 +161,14 @@ export default function Hero() {
               style={{
                 display: "flex", alignItems: "center", gap: 8,
                 padding: "13px 24px",
-                background: "transparent", color: "rgba(255,255,255,0.7)",
-                border: "1px solid rgba(255,255,255,0.12)", borderRadius: 10,
+                background: "transparent", color: "var(--text-60)",
+                border: "1px solid var(--border-b)", borderRadius: 10,
                 fontSize: 14, fontWeight: 600,
                 cursor: "pointer", letterSpacing: "-0.01em",
                 textDecoration: "none", transition: "all 0.2s",
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#fff"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.7)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.12)"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--text-100)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border-c)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--text-60)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border-b)"; }}
             >
               Resume
             </a>
@@ -209,19 +190,19 @@ export default function Hero() {
                 style={{
                   width: 44, height: 44,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  border: "1px solid var(--border-a)",
                   borderRadius: 10,
-                  color: "rgba(255,255,255,0.4)",
+                  color: "var(--text-40)",
                   background: "transparent",
                   textDecoration: "none", transition: "all 0.2s",
                 }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#fff"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.25)"; (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.05)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.4)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--text-100)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border-c)"; (e.currentTarget as HTMLElement).style.background = "var(--surface-b)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--text-40)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border-a)"; (e.currentTarget as HTMLElement).style.background = "transparent"; }}
               >
                 <Icon size={16} />
               </a>
             ))}
-            <span style={{ marginLeft: 8, fontSize: 12, color: "rgba(255,255,255,0.2)", letterSpacing: "0.05em" }}>
+            <span style={{ marginLeft: 8, fontSize: 12, color: "var(--text-20)", letterSpacing: "0.05em" }}>
               Karachi, Pakistan
             </span>
           </motion.div>
@@ -238,27 +219,26 @@ export default function Hero() {
           {/* Current role card */}
           <div style={{
             padding: "24px 28px",
-            border: "1px solid rgba(255,255,255,0.07)",
+            border: "1px solid var(--border-a)",
             borderRadius: 16,
-            background: "rgba(255,255,255,0.025)",
+            background: "var(--surface-a)",
             backdropFilter: "blur(12px)",
           }}>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12 }}>Currently</div>
-            <div style={{ fontSize: 16, fontWeight: 600, color: "#fff", marginBottom: 4 }}>Associate DevOps Engineer</div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>Paysys Labs · Aug 2025 – Present</div>
+            <div style={{ fontSize: 11, color: "var(--text-40)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12 }}>Currently</div>
+            <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text-100)", marginBottom: 4 }}>Associate DevOps Engineer</div>
+            <div style={{ fontSize: 13, color: "var(--text-40)" }}>Paysys Labs · Aug 2025 – Present</div>
             <div style={{ marginTop: 16, display: "flex", gap: 8, flexWrap: "wrap" }}>
               {["Kubernetes", "ELK Stack", "GitLab CI", "Fintech"].map(t => (
                 <span key={t} style={{
                   fontSize: 11, padding: "3px 10px", borderRadius: 20,
                   background: "rgba(59,130,246,0.1)", color: "#60A5FA",
-                  border: "1px solid rgba(59,130,246,0.2)",
-                  letterSpacing: "0.02em",
+                  border: "1px solid rgba(59,130,246,0.2)", letterSpacing: "0.02em",
                 }}>{t}</span>
               ))}
             </div>
           </div>
 
-          {/* Stats grid — animated counters */}
+          {/* Stats grid */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
             {personalInfo.stats.map((stat, i) => (
               <motion.div
@@ -268,63 +248,47 @@ export default function Hero() {
                 transition={{ type: "spring", bounce: 0.4, duration: 0.8, delay: 0.5 + i * 0.1 }}
                 style={{
                   padding: "20px 20px",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  border: "1px solid var(--border-a)",
                   borderRadius: 14,
-                  background: "rgba(255,255,255,0.02)",
+                  background: "var(--surface-a)",
                 }}
               >
                 <AnimatedCounter
                   value={stat.value}
                   duration={1600}
-                  style={{ fontSize: 28, fontWeight: 800, color: "#fff", letterSpacing: "-0.03em", lineHeight: 1 }}
+                  style={{ fontSize: 28, fontWeight: 800, color: "var(--text-100)", letterSpacing: "-0.03em", lineHeight: 1 }}
                 />
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 6, lineHeight: 1.4 }}>
+                <div style={{ fontSize: 11, color: "var(--text-40)", marginTop: 6, lineHeight: 1.4 }}>
                   {stat.label}
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Badges row */}
+          {/* Badges */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
             <div style={{
               padding: "14px 16px",
-              border: "1px solid rgba(16,185,129,0.2)",
-              borderRadius: 14,
+              border: "1px solid rgba(16,185,129,0.2)", borderRadius: 14,
               background: "rgba(16,185,129,0.05)",
               display: "flex", alignItems: "center", gap: 12,
             }}>
-              <div style={{
-                width: 32, height: 32, borderRadius: 8,
-                background: "rgba(16,185,129,0.15)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 14, flexShrink: 0,
-              }}>⎈</div>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(16,185,129,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>⎈</div>
               <div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.85)", marginBottom: 2 }}>
-                  CKA Certified
-                </div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,0.35)" }}>KodeKloud</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-80)", marginBottom: 2 }}>CKA Certified</div>
+                <div style={{ fontSize: 10, color: "var(--text-40)" }}>KodeKloud</div>
               </div>
             </div>
             <div style={{
               padding: "14px 16px",
-              border: "1px solid rgba(251,191,36,0.2)",
-              borderRadius: 14,
+              border: "1px solid rgba(251,191,36,0.2)", borderRadius: 14,
               background: "rgba(251,191,36,0.04)",
               display: "flex", alignItems: "center", gap: 12,
             }}>
-              <div style={{
-                width: 32, height: 32, borderRadius: 8,
-                background: "rgba(251,191,36,0.12)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 14, flexShrink: 0,
-              }}>🥇</div>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(251,191,36,0.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>🥇</div>
               <div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.85)", marginBottom: 2 }}>
-                  2× Gold Medal
-                </div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,0.35)" }}>FAST NUCES</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-80)", marginBottom: 2 }}>2× Gold Medal</div>
+                <div style={{ fontSize: 10, color: "var(--text-40)" }}>FAST NUCES</div>
               </div>
             </div>
           </div>
@@ -342,22 +306,67 @@ export default function Hero() {
           left: "50%", transform: "translateX(-50%)",
           display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
           background: "none", border: "none", cursor: "pointer",
-          color: "rgba(255,255,255,0.2)",
+          color: "var(--text-20)",
         }}
       >
-        <motion.div
-          animate={{ y: [0, 5, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        >
+        <motion.div animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}>
           <ArrowDown size={16} />
         </motion.div>
       </motion.button>
 
-      {/* Responsive */}
       <style>{`
         @media (max-width: 768px) {
           .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; padding: 100px 20px 60px !important; }
           .hero-right { display: none !important; }
+        }
+        @keyframes blob1 {
+          0%,100% { transform: translate(0,0) scale(1); }
+          33%      { transform: translate(60px,-80px) scale(1.15); }
+          66%      { transform: translate(-40px,40px) scale(0.88); }
+        }
+        @keyframes blob2 {
+          0%,100% { transform: translate(0,0) scale(1); }
+          40%      { transform: translate(-70px,60px) scale(1.2); }
+          70%      { transform: translate(50px,-30px) scale(0.9); }
+        }
+        @keyframes blob3 {
+          0%,100% { transform: translate(0,0) scale(1); }
+          30%      { transform: translate(40px,70px) scale(0.85); }
+          65%      { transform: translate(-60px,-50px) scale(1.1); }
+        }
+        @keyframes blob4 {
+          0%,100% { transform: translate(0,0) scale(1); }
+          50%      { transform: translate(-30px,50px) scale(1.1); }
+        }
+        .hero-blob {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(70px);
+          will-change: transform;
+        }
+        .hero-blob-1 {
+          width: 520px; height: 520px;
+          background: radial-gradient(circle, rgba(167,139,250,0.28) 0%, transparent 70%);
+          top: -80px; left: -60px;
+          animation: blob1 10s ease-in-out infinite;
+        }
+        .hero-blob-2 {
+          width: 440px; height: 440px;
+          background: radial-gradient(circle, rgba(236,72,153,0.18) 0%, transparent 70%);
+          top: 30%; right: -80px;
+          animation: blob2 13s ease-in-out infinite;
+        }
+        .hero-blob-3 {
+          width: 380px; height: 380px;
+          background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+          bottom: -60px; left: 30%;
+          animation: blob3 11s ease-in-out infinite;
+        }
+        .hero-blob-4 {
+          width: 300px; height: 300px;
+          background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+          top: 20%; left: 45%;
+          animation: blob4 14s ease-in-out infinite;
         }
       `}</style>
     </section>

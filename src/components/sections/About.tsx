@@ -33,10 +33,9 @@ const pillars = [
 
 export default function About() {
   return (
-    <section id="about" style={{ background: "#111111", padding: "120px 0" }}>
+    <section id="about" style={{ background: "var(--bg-secondary)", padding: "120px 0" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }} className="about-container">
 
-        {/* Section label */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -44,15 +43,11 @@ export default function About() {
           transition={{ duration: 0.5 }}
           style={{ marginBottom: 80 }}
         >
-          <span style={{
-            fontSize: 11, fontWeight: 600, letterSpacing: "0.15em",
-            color: "rgba(255,255,255,0.5)", textTransform: "uppercase",
-          }}>
+          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "var(--text-40)", textTransform: "uppercase" }}>
             About
           </span>
         </motion.div>
 
-        {/* Top: headline + quote */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, marginBottom: 100 }} className="about-top">
           <motion.div
             initial={{ opacity: 0, x: -70 }}
@@ -62,15 +57,13 @@ export default function About() {
           >
             <h2 style={{
               fontSize: "clamp(36px, 4vw, 56px)",
-              fontWeight: 800,
-              lineHeight: 1.05,
+              fontWeight: 800, lineHeight: 1.05,
               letterSpacing: "-0.03em",
-              color: "#fff",
-              margin: 0,
+              color: "var(--text-100)", margin: 0,
             }}>
               I build infra<br />
               that handles money<br />
-              <span style={{ color: "rgba(255,255,255,0.3)" }}>across two countries.</span>
+              <span style={{ color: "var(--text-20)" }}>across two countries.</span>
             </h2>
           </motion.div>
 
@@ -81,18 +74,8 @@ export default function About() {
             transition={{ type: "spring", bounce: 0.28, duration: 0.9, delay: 0.1 }}
             style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
           >
-            <blockquote style={{
-              margin: 0,
-              padding: "0 0 0 20px",
-              borderLeft: "2px solid rgba(59,130,246,0.5)",
-            }}>
-              <p style={{
-                fontSize: 18,
-                lineHeight: 1.65,
-                color: "rgba(255,255,255,0.72)",
-                margin: 0,
-                fontStyle: "italic",
-              }}>
+            <blockquote style={{ margin: 0, padding: "0 0 0 20px", borderLeft: "2px solid rgba(59,130,246,0.5)" }}>
+              <p style={{ fontSize: 18, lineHeight: 1.65, color: "var(--text-60)", margin: 0, fontStyle: "italic" }}>
                 "I fix things before people notice they're broken, and sometimes I fix things
                 people didn't even know needed fixing."
               </p>
@@ -100,7 +83,7 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Pillars — fly in from alternating directions */}
+        {/* Pillars */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 100 }} className="pillars-grid">
           {pillars.map((p, i) => {
             const from = i === 0 ? { x: -80, opacity: 0 } : i === 1 ? { y: 80, opacity: 0, scale: 0.9 } : { x: 80, opacity: 0 };
@@ -115,8 +98,8 @@ export default function About() {
                 transition={{ type: "spring", bounce: 0.35, duration: 0.9, delay: i * 0.12 }}
                 style={{
                   padding: "36px 32px",
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.07)",
+                  background: "var(--surface-a)",
+                  border: "1px solid var(--border-a)",
                   borderRadius: 16,
                   borderTop: `2px solid ${color}`,
                   transition: "background 0.25s, border-color 0.25s",
@@ -124,18 +107,18 @@ export default function About() {
                   overflow: "hidden",
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
-                  (e.currentTarget as HTMLElement).style.borderColor = `${color}`;
+                  (e.currentTarget as HTMLElement).style.background = "var(--surface-b)";
+                  (e.currentTarget as HTMLElement).style.borderColor = color;
                 }}
                 onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)";
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)";
+                  (e.currentTarget as HTMLElement).style.background = "var(--surface-a)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--border-a)";
                   (e.currentTarget as HTMLElement).style.borderTopColor = color;
                 }}
               >
-                <div style={{ fontSize: 28, fontWeight: 800, color: `${color}18`, letterSpacing: "-0.05em", marginBottom: 16, lineHeight: 1 }}>{p.number}</div>
-                <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 12, letterSpacing: "-0.02em" }}>{p.title}</div>
-                <div style={{ fontSize: 14, color: "rgba(255,255,255,0.68)", lineHeight: 1.75 }}>{p.body}</div>
+                <div style={{ fontSize: 28, fontWeight: 800, color: `${color}55`, letterSpacing: "-0.05em", marginBottom: 16, lineHeight: 1 }}>{p.number}</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "var(--text-100)", marginBottom: 12, letterSpacing: "-0.02em" }}>{p.title}</div>
+                <div style={{ fontSize: 14, color: "var(--text-60)", lineHeight: 1.75 }}>{p.body}</div>
               </motion.div>
             );
           })}
@@ -148,13 +131,12 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.25)", textTransform: "uppercase", marginBottom: 32 }}
+            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "var(--text-20)", textTransform: "uppercase", marginBottom: 32 }}
           >
             Career Timeline
           </motion.div>
           <div style={{ position: "relative" }}>
-            {/* Animated growing line */}
-            <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.05)" }} />
+            <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 1, background: "var(--border-a)" }} />
             <motion.div
               initial={{ scaleY: 0, originY: 0 }}
               whileInView={{ scaleY: 1 }}
@@ -174,11 +156,10 @@ export default function About() {
                   style={{
                     display: "flex", alignItems: "center",
                     gap: 28, padding: "20px 0 20px 28px",
-                    borderBottom: "1px solid rgba(255,255,255,0.04)",
+                    borderBottom: "1px solid var(--border-a)",
                     position: "relative",
                   }}
                 >
-                  {/* Dot — pops in */}
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
@@ -193,17 +174,17 @@ export default function About() {
                           ? "rgba(251,191,36,0.8)"
                           : (t.label === "Internal API Platform" || t.label === "KubeForge")
                             ? "rgba(167,139,250,0.8)"
-                            : "rgba(255,255,255,0.3)",
+                            : "var(--text-40)",
                       boxShadow: t.active ? "0 0 12px rgba(59,130,246,0.6)" : "none",
                     }}
                   />
-                  <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", minWidth: 36, letterSpacing: "0.05em" }}>
+                  <span style={{ fontSize: 13, color: "var(--text-40)", minWidth: 36, letterSpacing: "0.05em" }}>
                     {t.year}
                   </span>
-                  <span style={{ fontSize: 16, fontWeight: t.active ? 700 : 500, color: t.active ? "#fff" : "rgba(255,255,255,0.8)", flex: 1 }}>
+                  <span style={{ fontSize: 16, fontWeight: t.active ? 700 : 500, color: t.active ? "var(--text-100)" : "var(--text-80)", flex: 1 }}>
                     {t.label}
                   </span>
-                  <span className="tl-sub" style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
+                  <span className="tl-sub" style={{ fontSize: 13, color: "var(--text-40)" }}>
                     {t.sub}
                   </span>
                   {t.active && (

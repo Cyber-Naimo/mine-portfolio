@@ -15,7 +15,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" style={{ background: "#111111", padding: "120px 0" }}>
+    <section id="contact" style={{ background: "var(--bg-secondary)", padding: "120px 0" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }} className="contact-container">
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }} className="contact-grid">
@@ -27,20 +27,20 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", display: "block", marginBottom: 24 }}>
+            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.15em", color: "var(--text-40)", textTransform: "uppercase", display: "block", marginBottom: 24 }}>
               Contact
             </span>
             <h2 style={{
               fontSize: "clamp(36px, 4.5vw, 64px)",
               fontWeight: 800, lineHeight: 1.0,
-              letterSpacing: "-0.04em", color: "#fff",
+              letterSpacing: "-0.04em", color: "var(--text-100)",
               margin: "0 0 24px",
             }}>
               Let&apos;s build<br />
               something<br />
-              <span style={{ color: "rgba(255,255,255,0.3)" }}>impactful.</span>
+              <span style={{ color: "var(--text-20)" }}>impactful.</span>
             </h2>
-            <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, maxWidth: 380, margin: "0 0 40px" }}>
+            <p style={{ fontSize: 16, color: "var(--text-60)", lineHeight: 1.7, maxWidth: 380, margin: "0 0 40px" }}>
               Open to DevOps, infrastructure, and platform engineering roles.
               If you&apos;re building something that needs to be reliable at scale, let&apos;s talk.
             </p>
@@ -49,12 +49,12 @@ export default function Contact() {
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 padding: "14px 28px", borderRadius: 12,
-                background: "#fff", color: "#0A0A0A",
+                background: "var(--text-100)", color: "var(--bg-primary)",
                 fontSize: 14, fontWeight: 700, letterSpacing: "-0.01em",
-                textDecoration: "none", transition: "all 0.2s",
+                textDecoration: "none", transition: "opacity 0.2s, transform 0.2s",
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.9)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = "0.85"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = "1"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
             >
               Send me an email <ArrowUpRight size={16} strokeWidth={2.5} />
             </a>
@@ -68,7 +68,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="contact-right"
           >
-            <div style={{ display: "flex", flexDirection: "column", gap: 0, border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, overflow: "hidden" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 0, border: "1px solid var(--border-a)", borderRadius: 16, overflow: "hidden" }}>
               {[
                 {
                   icon: Mail, label: "Email", value: personalInfo.email,
@@ -101,26 +101,25 @@ export default function Contact() {
                         display: "flex", alignItems: "center", justifyContent: "space-between",
                         padding: "20px 24px", gap: 16,
                         textDecoration: "none",
-                        background: "rgba(255,255,255,0.01)",
-                        borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                        background: "var(--surface-a)",
+                        borderBottom: i < arr.length - 1 ? "1px solid var(--border-a)" : "none",
                         transition: "background 0.2s",
                       }}
-                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"}
-                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.01)"}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--surface-b)"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "var(--surface-a)"}
                     >
                       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                         <div style={{
                           width: 40, height: 40, borderRadius: 10,
-                          background: iconBg,
-                          border: `1px solid ${iconBorder}`,
+                          background: iconBg, border: `1px solid ${iconBorder}`,
                           display: "flex", alignItems: "center", justifyContent: "center",
                           color: iconColor, flexShrink: 0,
                         }}>
                           <Icon size={17} />
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
-                          <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginBottom: 3 }}>{label}</div>
-                          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.85)", fontWeight: 500, overflowWrap: "break-word", wordBreak: "break-all" }}>{value}</div>
+                          <div style={{ fontSize: 11, color: "var(--text-40)", marginBottom: 3 }}>{label}</div>
+                          <div style={{ fontSize: 14, color: "var(--text-80)", fontWeight: 500, overflowWrap: "break-word", wordBreak: "break-all" }}>{value}</div>
                         </div>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
@@ -131,9 +130,9 @@ export default function Contact() {
                             style={{
                               display: "flex", alignItems: "center", justifyContent: "center",
                               width: 30, height: 30, borderRadius: 7,
-                              border: "1px solid rgba(255,255,255,0.1)",
-                              background: copied ? "rgba(16,185,129,0.1)" : "rgba(255,255,255,0.04)",
-                              color: copied ? "#10B981" : "rgba(255,255,255,0.35)",
+                              border: "1px solid var(--border-b)",
+                              background: copied ? "rgba(16,185,129,0.1)" : "var(--surface-b)",
+                              color: copied ? "#10B981" : "var(--text-40)",
                               cursor: "pointer", flexShrink: 0,
                               transition: "all 0.2s",
                             }}
@@ -141,28 +140,27 @@ export default function Contact() {
                             {copied ? <Check size={13} /> : <Copy size={13} />}
                           </button>
                         )}
-                        <ArrowUpRight size={15} color="rgba(255,255,255,0.25)" />
+                        <ArrowUpRight size={15} color="var(--text-20)" />
                       </div>
                     </a>
                   ) : (
                     <div style={{
                       display: "flex", alignItems: "center", gap: 14,
                       padding: "20px 24px",
-                      borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
-                      background: "rgba(255,255,255,0.01)",
+                      borderBottom: i < arr.length - 1 ? "1px solid var(--border-a)" : "none",
+                      background: "var(--surface-a)",
                     }}>
                       <div style={{
                         width: 40, height: 40, borderRadius: 10,
-                        background: iconBg,
-                        border: `1px solid ${iconBorder}`,
+                        background: iconBg, border: `1px solid ${iconBorder}`,
                         display: "flex", alignItems: "center", justifyContent: "center",
                         color: iconColor, flexShrink: 0,
                       }}>
                         <Icon size={17} />
                       </div>
                       <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginBottom: 3 }}>{label}</div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,0.85)", fontWeight: 500, overflowWrap: "break-word" }}>{value}</div>
+                        <div style={{ fontSize: 11, color: "var(--text-40)", marginBottom: 3 }}>{label}</div>
+                        <div style={{ fontSize: 14, color: "var(--text-80)", fontWeight: 500, overflowWrap: "break-word" }}>{value}</div>
                       </div>
                     </div>
                   )}
